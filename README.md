@@ -15,6 +15,20 @@ This Android app uses a TensorFlow Lite model to classify social media posts int
 
 ---
 
+## 📓 Android.ipynb – Python Training Notebook
+
+This project includes a companion Jupyter notebook named **`Android.ipynb`**, which contains the complete training pipeline for the text classification model. It covers:
+
+- ✅ Loading and preparing training data
+- ✅ Tokenization using `TextVectorization`
+- ✅ Building and training the Keras model
+- ✅ Converting the trained model to TensorFlow Lite (`.tflite`)
+- ✅ Exporting `vocab.txt` and `labels.txt` for Android inference
+
+Use this notebook to retrain or modify your model, ensuring consistency between the Python training environment and Android deployment.
+
+---
+
 ## 🧠 Model Overview
 
 - **Model file**: `model_with_softmax.tflite`
