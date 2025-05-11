@@ -31,6 +31,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        TextClassifier.initialize(this)
         setContent {
             TFliteAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -81,9 +82,14 @@ fun HomeScreen(modifier: Modifier=Modifier)
 
         Button(onClick = {
             // Run tokenization + TFLite prediction
-            Log.d("InputText", "User typed: $text")
+            val result = TextClassifier.predict(text)
+
+
+            res = result
+
+            Log.d("Prediction", result)
+
         }) {
-            res = "Clicked"
             Text("Predict")
         }
         Text("Response: ${res}")
