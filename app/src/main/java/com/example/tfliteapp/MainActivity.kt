@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,14 +43,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview()
@@ -63,9 +56,10 @@ fun HomeScreen(modifier: Modifier=Modifier)
     var text by remember { mutableStateOf("") }
     var res by remember { mutableStateOf("") }
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .padding(16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         TextField(
             value = text,
@@ -81,25 +75,12 @@ fun HomeScreen(modifier: Modifier=Modifier)
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            // Run tokenization + TFLite prediction
-            val result = TextClassifier.predict(text)
-
-
+           val result = TextClassifier.predict(text)
             res = result
-
             Log.d("Prediction", result)
-
         }) {
             Text("Predict")
         }
-        Text("Response: ${res}")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TFliteAppTheme {
-        Greeting("Android")
+        Text("Response: ${res}",modifier=Modifier.fillMaxWidth())
     }
 }
