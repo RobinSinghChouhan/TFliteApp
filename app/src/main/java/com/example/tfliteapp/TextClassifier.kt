@@ -33,9 +33,16 @@ object TextClassifier {
         interpreter.run(arrayOf(input), output)
         val probs = output[0]
 
-        val maxIndex = probs.indices.maxByOrNull { probs[it] } ?: -1
-        return labels[maxIndex]
+        // Zip labels with probabilities and sort
+        val sorted = labels.zip(probs.toList())
+            .sortedByDescending { it.second }
+
+        // Format as string: each line "label: 92.34%"
+        return sorted.joinToString(separator = "\n") { (label, prob) ->
+            "$label: ${"%.2f".format(prob.coerceIn(0f, 1f) * 100)}%"
+        }
     }
+
 
 
     private fun preprocess(text: String, vocab: Map<String, Int>, maxLen: Int = 50): IntArray {
